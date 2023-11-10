@@ -1,6 +1,7 @@
 package christmas.controller;
 
 import christmas.domain.wrapper.EventDate;
+import christmas.domain.wrapper.OrderedMenu;
 import christmas.handler.InputHandler;
 import christmas.handler.OutputHandler;
 
@@ -16,6 +17,8 @@ public class EventController {
 
     public void run() {
         EventDate eventDate = loadDate();
+
+        OrderedMenu orderedMenu = loadOrderedMenu();
     }
 
     private EventDate loadDate() {
@@ -30,6 +33,17 @@ public class EventController {
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
+        }
+    }
+
+    private OrderedMenu loadOrderedMenu() {
+        try {
+            outputHandler.requestMenuMessage();
+            String menuString = inputHandler.inputValue();
+
+            return OrderedMenu.from(menuString);
+        } catch (NumberFormatException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

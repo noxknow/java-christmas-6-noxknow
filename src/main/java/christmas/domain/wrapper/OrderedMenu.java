@@ -1,9 +1,6 @@
 package christmas.domain.wrapper;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static christmas.handler.ConstantsHandler.*;
 import static christmas.handler.ErrorHandler.*;
@@ -63,5 +60,9 @@ public class OrderedMenu {
                 throw INVALID_QUANTITY_RANGE.getException();
             }
         }
+    }
+
+    public Map<String, Integer> getOrderedMenu() {
+        return Collections.unmodifiableMap(orderedMenu);
     }
 }
