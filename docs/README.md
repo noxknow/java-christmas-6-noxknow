@@ -18,29 +18,29 @@
 - [ ] domain Package
    - [ ] DateManager
       - 날짜와 관련된 할인을 적용하는 클래스
-      - 새로운 인스턴스를 생성하고 반환하는 create 메서드
+      - 매개변수 하나를 받아 새로운 인스턴스를 생성하고 반환하는 from 메서드
    - [ ] MenuManager
       - 메뉴와 메뉴의 개수, 메뉴의 가격을 Enum으로 관리하는 클래스
-      - 새로운 인스턴스를 생성하고 반환하는 create 메서드
+      - 매개변수 하나를 받아 새로운 인스턴스를 생성하고 반환하는 from 메서드
    - wrapper Package
       - [ ] Date
          - 입력받은 날짜에 대한 유효성 검사와 반환을 담당하는 클래스
-         - 새로운 인스턴스를 생성하고 반환하는 create 메서드
+         - 매개변수 하나를 받아 새로운 인스턴스를 생성하고 반환하는 from 메서드
          - 날짜가 숫자로 변환이 가능한지 확인하는 `validateDateType` 메서드
          - 날짜의 범위가 1 ~ 31 사이의 숫자가 맞는지 확인하는 `validateDateRange` 메서드
          - 날짜를 반환하는 `getDate` 메서드
       - [ ] Menu
          - 입력받은 메뉴에 대한 유효성 검사와 반환을 담당하는 클래스
-         - 새로운 인스턴스를 생성하고 반환하는 create 메서드
+         - 매개변수 하나를 받아 새로운 인스턴스를 생성하고 반환하는 from 메서드
          - 메뉴판에 있는 메뉴인지 확인하는  `validateMenuType` 메서드
       - [ ] MenuQuantity
          - 입력받은 메뉴 개수에 대한 유효성 검사와 반환을 담당하는 클래스
-         - 새로운 인스턴스를 생성하고 반환하는 create 메서드
+         - 매개변수 하나를 받아 새로운 인스턴스를 생성하고 반환하는 from 메서드
          - 메뉴 개수가 숫자로 변환이 가능한지 확인하는 `validatQuantityType` 메서드
          - 메뉴의 개수가 1 이상 인지 확인하는 `validateQuantityRange` 메서드
       - [ ] OrderedMenu
          - 주문받은 메뉴를 Map 형태로 갖고있는 클래스
-         - 새로운 인스턴스를 생성하고 반환하는 create 메서드
+         - 매개변수 하나를 받아 새로운 인스턴스를 생성하고 반환하는 from 메서드
          - 입력값을 split을 통해 메뉴와 메뉴 개수로 나누고 주문 양식과 같은지 확인하는 `validateOrderFormat` 메서드
          - 중복되는 메뉴가 있는지 확인하는 `validateMenuDuplicate` 메서드
          - 메뉴를 반환하는 `getMenu` 메서드
