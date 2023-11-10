@@ -6,8 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import static christmas.handler.ConstantsHandler.*;
-import static christmas.handler.ErrorHandler.DUPLICATE_MENU;
-import static christmas.handler.ErrorHandler.INVALID_MENU_FORMAT;
+import static christmas.handler.ErrorHandler.*;
 
 public class OrderedMenu {
 
@@ -16,6 +15,7 @@ public class OrderedMenu {
     private OrderedMenu(String menuString) {
         this.orderedMenu = validateOrderFormat(menuString);
         validateMenuDuplicate(orderedMenu);
+        validateQuantityRange(orderedMenu);
     }
 
     public static OrderedMenu from(String menuString) {
@@ -54,6 +54,14 @@ public class OrderedMenu {
             }
 
             uniqueMenus.add(menu);
+        }
+    }
+
+    private void validateQuantityRange(Map<String, Integer> orderedMenu) {
+        for (int quantity : orderedMenu.values()) {
+            if (quantity < MIN_QUANTITY) {
+                throw INVALID_QUANTITY_RANGE.getException();
+            }
         }
     }
 }
