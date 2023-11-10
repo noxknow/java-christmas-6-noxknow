@@ -17,4 +17,13 @@ public class EventDateTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(ErrorHandler.INCONVERTIBLE_TYPE.getException().getMessage());
     }
+
+    @DisplayName("날짜의 범위가 1 ~ 31 사이의 숫자가 아니라면 예외가 발생한다.")
+    @ParameterizedTest(name = "[{index}] input {0}")
+    @ValueSource(strings = {"40", "0", "-50"})
+    void createDateByInvalidRange(String dateValue) {
+        assertThatThrownBy(() -> EventDate.from(dateValue))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ErrorHandler.INVALID_DATE_RANGE.getException().getMessage());
+    }
 }
