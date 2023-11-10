@@ -9,27 +9,27 @@ public class OrderedMenu {
 
     private final Map<String, Integer> orderedMenu;
 
-    private OrderedMenu(String menuString) {
-        this.orderedMenu = validateOrderFormat(menuString);
+    private OrderedMenu(String menuValue) {
+        this.orderedMenu = validateOrderFormat(menuValue);
         validateMenuDuplicate(orderedMenu);
         validateQuantityRange(orderedMenu);
     }
 
-    public static OrderedMenu from(String menuString) {
-        return new OrderedMenu(menuString);
+    public static OrderedMenu from(String menuValue) {
+        return new OrderedMenu(menuValue);
     }
 
-    private Map<String, Integer> validateOrderFormat(String menuString) {
+    private Map<String, Integer> validateOrderFormat(String menuValue) {
         try {
-            return splitMenuString(menuString);
+            return splitMenuValue(menuValue);
         } catch (NumberFormatException e) {
             throw INVALID_MENU_FORMAT.getException();
         }
     }
 
-    private Map<String, Integer> splitMenuString(String menuString) {
+    private Map<String, Integer> splitMenuValue(String menuValue) {
         Map<String, Integer> orderedMenu = new HashMap<>();
-        String[] items = menuString.split(COMMA_DELIMITER);
+        String[] items = menuValue.split(COMMA_DELIMITER);
 
         for (String item : items) {
             String[] menuStructure = item.split(DASH_DELIMITER);

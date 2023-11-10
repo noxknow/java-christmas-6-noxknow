@@ -27,9 +27,9 @@ public class EventController {
         while (true) {
             try {
                 outputHandler.requestVisitDayMessage();
-                String dateString = inputHandler.inputValue();
+                String dateValue = inputHandler.inputValue();
 
-                return EventDate.from(dateString);
+                return EventDate.from(dateValue);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
@@ -37,13 +37,15 @@ public class EventController {
     }
 
     private OrderedMenu loadOrderedMenu() {
-        try {
-            outputHandler.requestMenuMessage();
-            String menuString = inputHandler.inputValue();
+        while (true) {
+            try {
+                outputHandler.requestMenuMessage();
+                String menuValue = inputHandler.inputValue();
 
-            return OrderedMenu.from(menuString);
-        } catch (NumberFormatException e) {
-            System.out.println(e.getMessage());
+                return OrderedMenu.from(menuValue);
+            } catch (NumberFormatException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 }

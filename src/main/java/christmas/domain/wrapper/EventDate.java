@@ -9,18 +9,18 @@ public class EventDate {
 
     private final int date;
 
-    private EventDate(String dateString) {
-        this.date = validateDateType(dateString);
+    private EventDate(String dateValue) {
+        this.date = validateDateType(dateValue);
         validateDateRange(date);
     }
 
-    public static EventDate from(String dateString) {
-        return new EventDate(dateString);
+    public static EventDate from(String dateValue) {
+        return new EventDate(dateValue);
     }
 
-    private int validateDateType(String dateString) {
+    private int validateDateType(String dateValue) {
         try {
-            return Integer.parseInt(dateString);
+            return Integer.parseInt(dateValue);
         } catch (NumberFormatException e) {
             throw INCONVERTIBLE_TYPE.getException();
         }
