@@ -1,10 +1,12 @@
 package christmas.domain.wrapper;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import static christmas.handler.ConstantsHandler.COMMA_DELIMITER;
-import static christmas.handler.ConstantsHandler.DASH_DELIMITER;
+import static christmas.handler.ConstantsHandler.*;
+import static christmas.handler.ErrorHandler.DUPLICATE_MENU;
 import static christmas.handler.ErrorHandler.INVALID_MENU_FORMAT;
 
 public class OrderedMenu {
@@ -13,6 +15,7 @@ public class OrderedMenu {
 
     private OrderedMenu(String menuString) {
         this.orderedMenu = validateOrderFormat(menuString);
+        validateMenuDuplicate(orderedMenu);
     }
 
     public static OrderedMenu from(String menuString) {
@@ -33,12 +36,24 @@ public class OrderedMenu {
 
         for (String item : items) {
             String[] menuStructure = item.split(DASH_DELIMITER);
-            String menu = menuStructure[0];
-            int quantity = Integer.parseInt(menuStructure[1]);
+            String menu = menuStructure[FIRST_ELEMENT];
+            int quantity = Integer.parseInt(menuStructure[SECOND_ELEMENT]);
 
             orderedMenu.put(menu, quantity);
         }
 
         return orderedMenu;
+    }
+
+    private void validateMenuDuplicate(Map<String, Integer> orderedMenu) {
+        List<String> uniqueMenus = new ArrayList<>();
+
+        for (String menu : orderedMenu.keySet()) {
+            if (uniqueMenus.contains(menu)) {
+                throw DUPLICATE_MENU.getException();
+            }
+
+            uniqueMenus.add(menu);
+        }
     }
 }
