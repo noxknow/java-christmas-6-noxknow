@@ -5,17 +5,17 @@ import static christmas.handler.ConstantsHandler.MIN_DATE_NUMBER;
 import static christmas.handler.ErrorHandler.INCONVERTIBLE_TYPE;
 import static christmas.handler.ErrorHandler.INVALID_DATE_RANGE;
 
-public class Date {
+public class EventDate {
 
     private final int date;
 
-    private Date(String dateString) {
+    private EventDate(String dateString) {
         this.date = validateDateType(dateString);
         validateDateRange(date);
     }
 
-    public static Date from(String dateString) {
-        return new Date(dateString);
+    public static EventDate from(String dateString) {
+        return new EventDate(dateString);
     }
 
     private int validateDateType(String dateString) {
@@ -30,5 +30,9 @@ public class Date {
         if (date < MIN_DATE_NUMBER || date > MAX_DATE_NUMBER) {
             throw INVALID_DATE_RANGE.getException();
         }
+    }
+
+    public int getEventDate() {
+        return date;
     }
 }
