@@ -43,7 +43,7 @@ public class EventController {
                 String menuValue = inputHandler.inputValue();
 
                 return OrderedMenu.from(menuValue);
-            } catch (NumberFormatException e) {
+            } catch (RuntimeException e) {
                 System.out.println(e.getMessage());
             }
         }

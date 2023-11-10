@@ -11,7 +11,6 @@ public class OrderedMenu {
 
     private OrderedMenu(String menuValue) {
         this.orderedMenu = validateOrderFormat(menuValue);
-        validateMenuDuplicate(orderedMenu);
         validateQuantityRange(orderedMenu);
     }
 
@@ -22,6 +21,8 @@ public class OrderedMenu {
     private Map<String, Integer> validateOrderFormat(String menuValue) {
         try {
             return splitMenuValue(menuValue);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw INVALID_MENU_FORMAT.getException();
         } catch (NumberFormatException e) {
             throw INVALID_MENU_FORMAT.getException();
         }
@@ -36,22 +37,18 @@ public class OrderedMenu {
             String menu = menuStructure[FIRST_ELEMENT];
             int quantity = Integer.parseInt(menuStructure[SECOND_ELEMENT]);
 
-            orderedMenu.put(menu, quantity);
+            validateMenuDuplicate(orderedMenu, menu, quantity);
         }
 
         return orderedMenu;
     }
 
-    private void validateMenuDuplicate(Map<String, Integer> orderedMenu) {
-        List<String> uniqueMenus = new ArrayList<>();
-
-        for (String menu : orderedMenu.keySet()) {
-            if (uniqueMenus.contains(menu)) {
-                throw DUPLICATE_MENU.getException();
-            }
-
-            uniqueMenus.add(menu);
+    private void validateMenuDuplicate(Map<String, Integer> orderedMenu, String menu, int quantity) {
+        if (orderedMenu.containsKey(menu)) {
+            throw DUPLICATE_MENU.getException();
         }
+
+        orderedMenu.put(menu, quantity);
     }
 
     private void validateQuantityRange(Map<String, Integer> orderedMenu) {
