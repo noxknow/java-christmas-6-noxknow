@@ -35,4 +35,13 @@ public class OrderedMenuTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(ErrorHandler.INVALID_QUANTITY_RANGE.getException().getMessage());
     }
+
+    @DisplayName("메뉴판에 없는 메뉴라면 예외가 발생한다.")
+    @ParameterizedTest(name = "[{index}] input {0}")
+    @ValueSource(strings = {"해산물파스타-0,레드-1", "타파-1,펩시콜라-2"})
+    void createMenuByInvalidMenu(String menuValue) {
+        assertThatThrownBy(() -> OrderedMenu.from(menuValue))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ErrorHandler.INVALID_MENU.getException().getMessage());
+    }
 }
