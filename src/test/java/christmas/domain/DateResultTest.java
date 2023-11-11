@@ -23,7 +23,7 @@ public class DateResultTest {
     @DisplayName("크리스마스 디데이 할인이 정상적으로 적용된다.")
     @ParameterizedTest(name = "[{index}] input {0}")
     @MethodSource("testChristmasDiscount")
-    void createTotalCost(int date, int expectedDiscount) {
+    void createChristmasDiscount(int date, int expectedDiscount) {
         DateResult dateResult = DateResult.from(date);
 
         assertThat(dateResult.christmasDiscount()).isEqualTo(expectedDiscount);
