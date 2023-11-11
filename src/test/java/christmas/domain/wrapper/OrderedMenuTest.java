@@ -17,4 +17,13 @@ public class OrderedMenuTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(ErrorHandler.INVALID_MENU_FORMAT.getException().getMessage());
     }
+
+    @DisplayName("중복된 메뉴가 있는 경우 예외가 발생한다.")
+    @ParameterizedTest(name = "[{index}] input {0}")
+    @ValueSource(strings = {"해산물파스타-1,해산물파스타-2", "레드와인-1,레드와인-41"})
+    void createMenuByDuplicateMenu(String menuValue) {
+        assertThatThrownBy(() -> OrderedMenu.from(menuValue))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ErrorHandler.DUPLICATE_MENU.getException().getMessage());
+    }
 }
