@@ -1,17 +1,21 @@
 package christmas.domain;
 
+import java.util.Map;
+
 import static christmas.handler.ConstantsHandler.*;
 
 public class DateResult {
 
     private final int date;
+    private final Map<String, Integer> orderedMenu;
 
-    private DateResult(int date) {
+    private DateResult(int date, Map<String, Integer> orderedMenu) {
         this.date = date;
+        this.orderedMenu = orderedMenu;
     }
 
-    public static DateResult from(int date) {
-        return new DateResult(date);
+    public static DateResult of(int date, Map<String, Integer> orderedMenu) {
+        return new DateResult(date, orderedMenu);
     }
 
     public int christmasDiscount() {
