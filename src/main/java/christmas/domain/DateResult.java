@@ -15,6 +15,10 @@ public class DateResult {
     }
 
     public int christmasDiscount() {
-        return INIT_DISCOUNT + (date-INIT_DATE) * UNIT_OF_DISCOUNT;
+        if (date <= D_DAY) {
+            return INIT_DISCOUNT + (date-INIT_DATE) * UNIT_OF_DISCOUNT;
+        }
+
+        return INIT_VALUE;
     }
 }
