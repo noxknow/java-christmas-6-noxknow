@@ -26,4 +26,13 @@ public class OrderedMenuTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(ErrorHandler.DUPLICATE_MENU.getException().getMessage());
     }
+
+    @DisplayName("메뉴 개수가 1개 보다 적다면 예외가 발생한다.")
+    @ParameterizedTest(name = "[{index}] input {0}")
+    @ValueSource(strings = {"해산물파스타-0,레드와인-1", "해산물파스타--50,레드와인-41"})
+    void createMenuByInvalidQuantityRange(String menuValue) {
+        assertThatThrownBy(() -> OrderedMenu.from(menuValue))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ErrorHandler.INVALID_QUANTITY_RANGE.getException().getMessage());
+    }
 }
