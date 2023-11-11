@@ -1,5 +1,7 @@
 package christmas.domain.wrapper;
 
+import christmas.domain.MenuManager;
+
 import java.util.*;
 
 import static christmas.handler.ConstantsHandler.*;
@@ -12,6 +14,7 @@ public class OrderedMenu {
     private OrderedMenu(String menuValue) {
         this.orderedMenu = validateOrderFormat(menuValue);
         validateQuantityRange(orderedMenu);
+        validateMenuType(orderedMenu);
     }
 
     public static OrderedMenu from(String menuValue) {
@@ -55,6 +58,16 @@ public class OrderedMenu {
         for (int quantity : orderedMenu.values()) {
             if (quantity < MIN_QUANTITY) {
                 throw INVALID_QUANTITY_RANGE.getException();
+            }
+        }
+    }
+
+    private void validateMenuType(Map<String, Integer> orderedMenu) {
+        for (String menu : orderedMenu.keySet()) {
+            MenuManager menuManager = MenuManager.getMenuManager(menu);
+
+            if (menuManager == null) {
+                throw INVALID_MENU.getException();
             }
         }
     }
