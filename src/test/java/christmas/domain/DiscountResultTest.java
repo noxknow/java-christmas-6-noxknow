@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class DateResultTest {
+public class DiscountResultTest {
 
     private static Stream<Arguments> testChristmasDiscount() {
         return Stream.of(
@@ -29,8 +29,8 @@ public class DateResultTest {
     @ParameterizedTest(name = "[{index}] input {0}")
     @MethodSource("testChristmasDiscount")
     void createChristmasDiscount(int date, Map<String, Integer> orderedMenu, int expectedDiscount) {
-        DateResult dateResult = DateResult.of(date, orderedMenu);
+        DiscountResult discountResult = DiscountResult.of(date, orderedMenu);
 
-        assertThat(dateResult.christmasDiscount()).isEqualTo(expectedDiscount);
+        assertThat(discountResult.christmasDiscount()).isEqualTo(expectedDiscount);
     }
 }

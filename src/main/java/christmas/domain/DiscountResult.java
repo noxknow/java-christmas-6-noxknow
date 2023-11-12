@@ -4,18 +4,18 @@ import java.util.Map;
 
 import static christmas.handler.ConstantsHandler.*;
 
-public class DateResult {
+public class DiscountResult {
 
     private final int date;
     private final Map<String, Integer> orderedMenu;
 
-    private DateResult(int date, Map<String, Integer> orderedMenu) {
+    private DiscountResult(int date, Map<String, Integer> orderedMenu) {
         this.date = date;
         this.orderedMenu = orderedMenu;
     }
 
-    public static DateResult of(int date, Map<String, Integer> orderedMenu) {
-        return new DateResult(date, orderedMenu);
+    public static DiscountResult of(int date, Map<String, Integer> orderedMenu) {
+        return new DiscountResult(date, orderedMenu);
     }
 
     public int christmasDiscount() {
