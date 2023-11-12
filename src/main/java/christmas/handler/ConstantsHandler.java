@@ -14,6 +14,7 @@ public class ConstantsHandler {
     public static final int INIT_VALUE = 0;
 
     public static final int INIT_DISCOUNT = 1000;
+    public static final int SPECIAL_DISCOUNT = 1000;
     public static final int UNIT_OF_DISCOUNT = 100;
     public static final int INIT_DATE = 1;
     public static final int D_DAY = 25;

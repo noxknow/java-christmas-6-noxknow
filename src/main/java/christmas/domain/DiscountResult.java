@@ -54,4 +54,12 @@ public class DiscountResult {
 
         return discount;
     }
+
+    public int specialDiscount() {
+        if (date % DAYS_IN_A_WEEK == SUNDAY_REMAINDER || date == D_DAY) {
+            return SPECIAL_DISCOUNT;
+        }
+
+        return INIT_VALUE;
+    }
 }
