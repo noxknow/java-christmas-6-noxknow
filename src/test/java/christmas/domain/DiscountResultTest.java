@@ -53,6 +53,6 @@ public class DiscountResultTest {
     void createWeekDayDiscount(int date, Map<String, Integer> orderedMenu, int expectedDiscount) {
         DiscountResult discountResult = DiscountResult.of(date, orderedMenu);
 
-        assertThat(discountResult.weekDayDiscount()).isEqualTo(expectedDiscount);
+        assertThat(discountResult.weeklyDiscount()).isEqualTo(expectedDiscount);
     }
 }

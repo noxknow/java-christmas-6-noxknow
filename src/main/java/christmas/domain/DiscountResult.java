@@ -26,20 +26,20 @@ public class DiscountResult {
         return INIT_VALUE;
     }
 
-    public int weekDayDiscount() {
-        int weekDayDiscount = INIT_VALUE;
+    public int weeklyDiscount() {
+        int discount = INIT_VALUE;
 
         if (date % DAYS_IN_A_WEEK == THURSDAY_REMAINDER || date % DAYS_IN_A_WEEK >= SUNDAY_REMAINDER && date % DAYS_IN_A_WEEK <= WEDNESDAY_REMAINDER) {
-            int discount = checkDessert();
+            int weekDayDiscount = checkDessert();
 
-            return weekDayDiscount + discount;
+            return discount + weekDayDiscount;
         }
 
-        return weekDayDiscount;
+        return discount;
     }
 
     private int checkDessert() {
-        int discount = INIT_VALUE;
+        int weekDayDiscount = INIT_VALUE;
 
         for (Map.Entry<String, Integer> entry : orderedMenu.entrySet()) {
             String menu = entry.getKey();
@@ -47,10 +47,10 @@ public class DiscountResult {
             MenuManager menuManager = MenuManager.getMenuManager(menu);
 
             if (menuManager.getGroup().equals("디저트")) {
-                discount += PRESENT_YEAR * quantity;
+                weekDayDiscount += PRESENT_YEAR * quantity;
             }
         }
 
-        return discount;
+        return weekDayDiscount;
     }
 }
