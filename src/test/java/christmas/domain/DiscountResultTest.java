@@ -25,15 +25,15 @@ public class DiscountResultTest {
         );
     }
 
-    private static Stream<Arguments> testWeekDayDiscount() {
+    private static Stream<Arguments> testWeeklyDiscount() {
         return Stream.of(
-                Arguments.of(5, Map.of("타파스", 1,
-                        "제로콜라", 1), 0),
-                Arguments.of(5, Map.of("초코케이크", 1,
-                        "바비큐립", 2), 2023),
-                Arguments.of(5,Map.of("아이스크림", 2,
-                        "시저샐러드", 1), 4046),
-                Arguments.of(5, Map.of("초코케이크", 1,
+                Arguments.of(8, Map.of("티본스테이크", 1,
+                        "제로콜라", 1), 2023),
+                Arguments.of(9, Map.of("초코케이크", 1,
+                        "바비큐립", 2), 4046),
+                Arguments.of(5,Map.of("아이스크림", 4,
+                        "해산물파스타", 1), 8092),
+                Arguments.of(12, Map.of("초코케이크", 1,
                         "아이스크림", 2), 6069)
         );
     }
@@ -47,9 +47,9 @@ public class DiscountResultTest {
         assertThat(discountResult.christmasDiscount()).isEqualTo(expectedDiscount);
     }
 
-    @DisplayName("평일 할인이 정상적으로 적용된다.")
+    @DisplayName("평일과 주말 할인이 정상적으로 적용된다.")
     @ParameterizedTest(name = "[{index}] input {0}")
-    @MethodSource("testWeekDayDiscount")
+    @MethodSource("testWeeklyDiscount")
     void createWeekDayDiscount(int date, Map<String, Integer> orderedMenu, int expectedDiscount) {
         DiscountResult discountResult = DiscountResult.of(date, orderedMenu);
 
