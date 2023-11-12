@@ -62,4 +62,12 @@ public class DiscountResult {
 
         return INIT_VALUE;
     }
+
+    public int eventDiscount(int beforeDiscountCost) {
+        if (beforeDiscountCost >= MIN_AMOUNT_FOR_FREE_GIFT) {
+            return CHAMPAGNE_AMOUNT;
+        }
+
+        return INIT_VALUE;
+    }
 }

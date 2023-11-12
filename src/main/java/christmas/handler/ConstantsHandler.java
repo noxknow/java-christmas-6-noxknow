@@ -25,4 +25,6 @@ public class ConstantsHandler {
     public static final int FRIDAY_REMAINDER = 1;
     public static final int SATURDAY_REMAINDER = 2;
     public static final int PRESENT_YEAR = 2023;
+    public static final int MIN_AMOUNT_FOR_FREE_GIFT = 120000;
+    public static final int CHAMPAGNE_AMOUNT = 25000;
 }
