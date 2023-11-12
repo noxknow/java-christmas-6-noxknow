@@ -21,5 +21,7 @@ public class ConstantsHandler {
     public static final int SUNDAY_REMAINDER = 3;
     public static final int THURSDAY_REMAINDER = 0;
     public static final int WEDNESDAY_REMAINDER = 6;
+    public static final int FRIDAY_REMAINDER = 1;
+    public static final int SATURDAY_REMAINDER = 2;
     public static final int PRESENT_YEAR = 2023;
 }

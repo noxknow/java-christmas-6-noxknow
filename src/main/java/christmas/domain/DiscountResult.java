@@ -28,29 +28,30 @@ public class DiscountResult {
 
     public int weeklyDiscount() {
         int discount = INIT_VALUE;
+        int weeklyRemainder = date % DAYS_IN_A_WEEK;
 
-        if (date % DAYS_IN_A_WEEK == THURSDAY_REMAINDER || date % DAYS_IN_A_WEEK >= SUNDAY_REMAINDER && date % DAYS_IN_A_WEEK <= WEDNESDAY_REMAINDER) {
-            int weekDayDiscount = checkDessert();
-
-            return discount + weekDayDiscount;
+        if (weeklyRemainder == THURSDAY_REMAINDER || weeklyRemainder >= SUNDAY_REMAINDER && weeklyRemainder <= WEDNESDAY_REMAINDER) {
+            discount += calculateDiscount("디저트");
+        } else if (weeklyRemainder >= FRIDAY_REMAINDER && weeklyRemainder <= SATURDAY_REMAINDER) {
+            discount += calculateDiscount("메인");
         }
 
         return discount;
     }
 
-    private int checkDessert() {
-        int weekDayDiscount = INIT_VALUE;
+    private int calculateDiscount(String menuGroup) {
+        int discount = INIT_VALUE;
 
         for (Map.Entry<String, Integer> entry : orderedMenu.entrySet()) {
             String menu = entry.getKey();
             int quantity = entry.getValue();
             MenuManager menuManager = MenuManager.getMenuManager(menu);
 
-            if (menuManager.getGroup().equals("디저트")) {
-                weekDayDiscount += PRESENT_YEAR * quantity;
+            if (menuManager.getGroup().equals(menuGroup)) {
+                discount += PRESENT_YEAR * quantity;
             }
         }
 
-        return weekDayDiscount;
+        return discount;
     }
 }
