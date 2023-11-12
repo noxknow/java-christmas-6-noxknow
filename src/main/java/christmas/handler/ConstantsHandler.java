@@ -17,4 +17,9 @@ public class ConstantsHandler {
     public static final int UNIT_OF_DISCOUNT = 100;
     public static final int INIT_DATE = 1;
     public static final int D_DAY = 25;
+    public static final int DAYS_IN_A_WEEK = 7;
+    public static final int SUNDAY_REMAINDER = 3;
+    public static final int THURSDAY_REMAINDER = 0;
+    public static final int WEDNESDAY_REMAINDER = 6;
+    public static final int PRESENT_YEAR = 2023;
 }
