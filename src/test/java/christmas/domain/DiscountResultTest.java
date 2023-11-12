@@ -49,6 +49,17 @@ public class DiscountResultTest {
         );
     }
 
+    private static Stream<Arguments> testEventDiscount() {
+        return Stream.of(
+                Arguments.of(25, Map.of("티본스테이크", 1,
+                        "제로콜라", 1), 120000, 25000),
+                Arguments.of(25, Map.of("티본스테이크", 1,
+                        "제로콜라", 1), 119999, 0),
+                Arguments.of(25, Map.of("티본스테이크", 1,
+                        "제로콜라", 1), 140000, 25000)
+        );
+    }
+
     @DisplayName("크리스마스 디데이 할인이 정상적으로 적용된다.")
     @ParameterizedTest(name = "[{index}] input {0}")
     @MethodSource("testChristmasDiscount")
@@ -74,5 +85,14 @@ public class DiscountResultTest {
         DiscountResult discountResult = DiscountResult.of(date, orderedMenu);
 
         assertThat(discountResult.specialDiscount()).isEqualTo(expectedDiscount);
+    }
+
+    @DisplayName("증정 이벤트 할인이 정상적으로 적용된다.")
+    @ParameterizedTest(name = "[{index}] input {0}")
+    @MethodSource("testEventDiscount")
+    void createEventDiscount(int date, Map<String, Integer> orderedMenu, int beforeDiscountCost, int expectedDiscount) {
+        DiscountResult discountResult = DiscountResult.of(date, orderedMenu);
+
+        assertThat(discountResult.eventDiscount(beforeDiscountCost)).isEqualTo(expectedDiscount);
     }
 }
