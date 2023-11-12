@@ -31,10 +31,21 @@ public class DiscountResultTest {
                         "제로콜라", 1), 2023),
                 Arguments.of(9, Map.of("초코케이크", 1,
                         "바비큐립", 2), 4046),
-                Arguments.of(5,Map.of("아이스크림", 4,
+                Arguments.of(3,Map.of("아이스크림", 4,
                         "해산물파스타", 1), 8092),
-                Arguments.of(12, Map.of("초코케이크", 1,
+                Arguments.of(25, Map.of("초코케이크", 1,
                         "아이스크림", 2), 6069)
+        );
+    }
+
+    private static Stream<Arguments> testSpecialDiscount() {
+        return Stream.of(
+                Arguments.of(25, Map.of("티본스테이크", 1,
+                        "제로콜라", 1), 1000),
+                Arguments.of(9, Map.of("초코케이크", 1,
+                        "바비큐립", 2), 0),
+                Arguments.of(3,Map.of("아이스크림", 4,
+                        "해산물파스타", 1), 1000)
         );
     }
 
@@ -50,9 +61,18 @@ public class DiscountResultTest {
     @DisplayName("평일과 주말 할인이 정상적으로 적용된다.")
     @ParameterizedTest(name = "[{index}] input {0}")
     @MethodSource("testWeeklyDiscount")
-    void createWeekDayDiscount(int date, Map<String, Integer> orderedMenu, int expectedDiscount) {
+    void createWeeklyDiscount(int date, Map<String, Integer> orderedMenu, int expectedDiscount) {
         DiscountResult discountResult = DiscountResult.of(date, orderedMenu);
 
         assertThat(discountResult.weeklyDiscount()).isEqualTo(expectedDiscount);
+    }
+
+    @DisplayName("특별 할인이 정상적으로 적용된다.")
+    @ParameterizedTest(name = "[{index}] input {0}")
+    @MethodSource("testSpecialDiscount")
+    void createSpecialDiscount(int date, Map<String, Integer> orderedMenu, int expectedDiscount) {
+        DiscountResult discountResult = DiscountResult.of(date, orderedMenu);
+
+        assertThat(discountResult.specialDiscount()).isEqualTo(expectedDiscount);
     }
 }
