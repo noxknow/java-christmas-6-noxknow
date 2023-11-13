@@ -9,6 +9,8 @@ import christmas.handler.OutputHandler;
 
 import java.util.Map;
 
+import static christmas.handler.ConstantsHandler.CHAMPAGNE_AMOUNT;
+
 public class EventController {
 
     private final InputHandler inputHandler;
@@ -94,7 +96,7 @@ public class EventController {
         MenuResult menuResult = MenuResult.from(orderedMenu.getOrderedMenu());
 
         int costBeforeDiscount = menuResult.calculateCostBeforeDiscount();
-        int totalCost = costBeforeDiscount - discountResult.totalDiscount(costBeforeDiscount);
+        int totalCost = costBeforeDiscount - discountResult.totalDiscount(costBeforeDiscount) + CHAMPAGNE_AMOUNT;
 
         outputHandler.printTotalCost(totalCost);
     }
