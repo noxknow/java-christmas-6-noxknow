@@ -164,4 +164,11 @@ public class ConsoleOutput implements OutputHandler {
         String formattedTotalCost = String.format("%,d원", totalCost);
         System.out.println(formattedTotalCost);
     }
+
+    @Override
+    public void printEventBadge(String eventBadge) {
+        System.out.println();
+        System.out.println("<12월 이벤트 배지>");
+        System.out.println(eventBadge);
+    }
 }

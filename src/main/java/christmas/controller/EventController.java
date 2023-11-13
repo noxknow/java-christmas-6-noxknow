@@ -35,6 +35,8 @@ public class EventController {
         showTotalDiscount(eventDate, orderedMenu);
 
         showTotalCost(eventDate, orderedMenu);
+
+        showEventBadge(eventDate, orderedMenu);
     }
 
     private EventDate loadDate() {
@@ -99,5 +101,16 @@ public class EventController {
         int totalCost = costBeforeDiscount - discountResult.totalDiscount(costBeforeDiscount) + CHAMPAGNE_AMOUNT;
 
         outputHandler.printTotalCost(totalCost);
+    }
+
+    private void showEventBadge(EventDate eventDate, OrderedMenu orderedMenu) {
+        DiscountResult discountResult = DiscountResult.of(eventDate.getEventDate(), orderedMenu.getOrderedMenu());
+        MenuResult menuResult = MenuResult.from(orderedMenu.getOrderedMenu());
+
+        int costBeforeDiscount = menuResult.calculateCostBeforeDiscount();
+        int totalDiscount = discountResult.totalDiscount(costBeforeDiscount);
+        String eventBadge = discountResult.eventBadge(totalDiscount);
+
+        outputHandler.printEventBadge(eventBadge);
     }
 }

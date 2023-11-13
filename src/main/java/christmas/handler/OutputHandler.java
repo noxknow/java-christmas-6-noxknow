@@ -15,4 +15,5 @@ public interface OutputHandler {
     void printDiscountResult(DiscountResult discountResult, MenuResult menuResult);
     void printTotalDiscount(DiscountResult discountResult, MenuResult menuResult);
     void printTotalCost(int totalCost);
+    void printEventBadge(String eventBadge);
 }
