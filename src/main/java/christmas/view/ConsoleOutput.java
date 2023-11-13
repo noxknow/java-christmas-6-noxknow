@@ -45,7 +45,8 @@ public class ConsoleOutput implements OutputHandler {
         System.out.println("<할인 전 총주문 금액>");
 
         int costBeforeDiscount = menuResult.calculateCostBeforeDiscount();
-        System.out.println(costBeforeDiscount + "원");
+        String formattedBeforeCost = String.format("-%,d원", costBeforeDiscount);
+        System.out.println(formattedBeforeCost);
 
         printFreeGiftEvent(costBeforeDiscount);
     }
