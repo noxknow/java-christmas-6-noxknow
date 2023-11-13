@@ -1,8 +1,11 @@
 package christmas.view;
 
+import christmas.domain.MenuResult;
 import christmas.handler.OutputHandler;
 
 import java.util.Map;
+
+import static christmas.handler.ConstantsHandler.MIN_AMOUNT_FOR_FREE_GIFT;
 
 public class ConsoleOutput implements OutputHandler {
 
@@ -32,6 +35,28 @@ public class ConsoleOutput implements OutputHandler {
             int quantity = entry.getValue();
 
             System.out.println(menu + " " + quantity + "개");
+        }
+    }
+
+    @Override
+    public void printCostBeforeDiscount(MenuResult menuResult) {
+        System.out.println();
+        System.out.println("<할인 전 총주문 금액>");
+
+        int costBeforeDiscount = menuResult.calculateCostBeforeDiscount();
+        System.out.println(costBeforeDiscount + "원");
+
+        printFreeGiftEvent(costBeforeDiscount);
+    }
+
+    private void printFreeGiftEvent(int costBeforeDiscount) {
+        System.out.println();
+        System.out.println("<증정 메뉴>");
+
+        if (costBeforeDiscount >= MIN_AMOUNT_FOR_FREE_GIFT) {
+            System.out.println("샴페인 1개");
+        } else if (costBeforeDiscount < MIN_AMOUNT_FOR_FREE_GIFT) {
+            System.out.println("없음");
         }
     }
 

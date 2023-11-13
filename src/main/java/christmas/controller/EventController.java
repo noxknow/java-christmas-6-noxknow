@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.domain.MenuResult;
 import christmas.domain.wrapper.EventDate;
 import christmas.domain.wrapper.OrderedMenu;
 import christmas.handler.InputHandler;
@@ -23,6 +24,8 @@ public class EventController {
         OrderedMenu orderedMenu = loadOrderedMenu();
 
         showOrderedMenu(eventDate, orderedMenu);
+
+        showCostBeforeDiscount(orderedMenu);
     }
 
     private EventDate loadDate() {
@@ -58,5 +61,10 @@ public class EventController {
         Map<String, Integer> orderMenu = orderedMenu.getOrderedMenu();
 
         outputHandler.printOrderedMenu(date, orderMenu);
+    }
+
+    private void showCostBeforeDiscount(OrderedMenu orderedMenu) {
+        MenuResult menuResult = MenuResult.from(orderedMenu.getOrderedMenu());
+        outputHandler.printCostBeforeDiscount(menuResult);
     }
 }
