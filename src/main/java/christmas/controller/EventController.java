@@ -62,7 +62,7 @@ public class EventController {
                 String menuValue = inputHandler.inputValue();
 
                 return OrderedMenu.from(menuValue);
-            } catch (RuntimeException e) {
+            } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
