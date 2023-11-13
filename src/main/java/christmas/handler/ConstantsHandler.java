@@ -27,4 +27,7 @@ public class ConstantsHandler {
     public static final int PRESENT_YEAR = 2023;
     public static final int MIN_AMOUNT_FOR_FREE_GIFT = 120000;
     public static final int CHAMPAGNE_AMOUNT = 25000;
+    public static final int STAR_BADGE_AMOUNT = 5000;
+    public static final int TREE_BADGE_AMOUNT = 10000;
+    public static final int SANTA_BADGE_AMOUNT = 20000;
 }
