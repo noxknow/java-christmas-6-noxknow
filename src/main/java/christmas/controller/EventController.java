@@ -31,6 +31,8 @@ public class EventController {
         showDiscountResult(eventDate, orderedMenu);
 
         showTotalDiscount(eventDate, orderedMenu);
+
+        showTotalCost(eventDate, orderedMenu);
     }
 
     private EventDate loadDate() {
@@ -85,5 +87,15 @@ public class EventController {
         MenuResult menuResult = MenuResult.from(orderedMenu.getOrderedMenu());
 
         outputHandler.printTotalDiscount(discountResult, menuResult);
+    }
+
+    private void showTotalCost(EventDate eventDate, OrderedMenu orderedMenu) {
+        DiscountResult discountResult = DiscountResult.of(eventDate.getEventDate(), orderedMenu.getOrderedMenu());
+        MenuResult menuResult = MenuResult.from(orderedMenu.getOrderedMenu());
+
+        int costBeforeDiscount = menuResult.calculateCostBeforeDiscount();
+        int totalCost = costBeforeDiscount - discountResult.totalDiscount(costBeforeDiscount);
+
+        outputHandler.printTotalCost(totalCost);
     }
 }

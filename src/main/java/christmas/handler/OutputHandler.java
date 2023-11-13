@@ -14,4 +14,5 @@ public interface OutputHandler {
     void printCostBeforeDiscount(MenuResult menuResult);
     void printDiscountResult(DiscountResult discountResult, MenuResult menuResult);
     void printTotalDiscount(DiscountResult discountResult, MenuResult menuResult);
+    void printTotalCost(int totalCost);
 }

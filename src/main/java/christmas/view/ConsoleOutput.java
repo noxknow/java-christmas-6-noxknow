@@ -45,7 +45,7 @@ public class ConsoleOutput implements OutputHandler {
         System.out.println("<할인 전 총주문 금액>");
 
         int costBeforeDiscount = menuResult.calculateCostBeforeDiscount();
-        String formattedBeforeCost = String.format("-%,d원", costBeforeDiscount);
+        String formattedBeforeCost = String.format("%,d원", costBeforeDiscount);
         System.out.println(formattedBeforeCost);
 
         printFreeGiftEvent(costBeforeDiscount);
@@ -142,7 +142,10 @@ public class ConsoleOutput implements OutputHandler {
         return false;
     }
 
+    @Override
     public void printTotalDiscount(DiscountResult discountResult, MenuResult menuResult) {
+        System.out.println();
+        System.out.println("<총혜택 금액>");
         int totalDiscount = discountResult.totalDiscount(menuResult.calculateCostBeforeDiscount());
 
         if (totalDiscount > INIT_VALUE) {
@@ -151,5 +154,14 @@ public class ConsoleOutput implements OutputHandler {
         } else if (totalDiscount == INIT_VALUE) {
             System.out.println("0원");
         }
+    }
+
+    @Override
+    public void printTotalCost(int totalCost) {
+        System.out.println();
+        System.out.println("<할인 후 예상 결제 금액>");
+
+        String formattedTotalCost = String.format("%,d원", totalCost);
+        System.out.println(formattedTotalCost);
     }
 }
