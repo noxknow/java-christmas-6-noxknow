@@ -70,4 +70,14 @@ public class DiscountResult {
 
         return INIT_VALUE;
     }
+
+    public int totalDiscount(int beforeDiscountCost) {
+        int christmasDiscount = christmasDiscount();
+        int weeklyDiscount = weeklyDiscount();
+        int specialDiscount = specialDiscount();
+        int eventDiscount = eventDiscount(beforeDiscountCost);
+        int totalDiscount = christmasDiscount + weeklyDiscount + specialDiscount + eventDiscount;
+
+        return totalDiscount;
+    }
 }
