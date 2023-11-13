@@ -10,6 +10,7 @@ import christmas.handler.OutputHandler;
 import java.util.Map;
 
 import static christmas.handler.ConstantsHandler.CHAMPAGNE_AMOUNT;
+import static christmas.handler.ConstantsHandler.MIN_AMOUNT_FOR_FREE_GIFT;
 
 public class EventController {
 
@@ -98,7 +99,13 @@ public class EventController {
         MenuResult menuResult = MenuResult.from(orderedMenu.getOrderedMenu());
 
         int costBeforeDiscount = menuResult.calculateCostBeforeDiscount();
-        int totalCost = costBeforeDiscount - discountResult.totalDiscount(costBeforeDiscount) + CHAMPAGNE_AMOUNT;
+        int totalCost = 0;
+
+        if (costBeforeDiscount >= MIN_AMOUNT_FOR_FREE_GIFT) {
+            totalCost = costBeforeDiscount - discountResult.totalDiscount(costBeforeDiscount) + CHAMPAGNE_AMOUNT;
+        } else if (costBeforeDiscount < MIN_AMOUNT_FOR_FREE_GIFT) {
+            totalCost = costBeforeDiscount - discountResult.totalDiscount(costBeforeDiscount);
+        }
 
         outputHandler.printTotalCost(totalCost);
     }
