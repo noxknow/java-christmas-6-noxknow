@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.domain.DiscountResult;
 import christmas.domain.MenuResult;
 import christmas.domain.wrapper.EventDate;
 import christmas.domain.wrapper.OrderedMenu;
@@ -26,6 +27,8 @@ public class EventController {
         showOrderedMenu(eventDate, orderedMenu);
 
         showCostBeforeDiscount(orderedMenu);
+
+        showDiscountResult(eventDate, orderedMenu);
     }
 
     private EventDate loadDate() {
@@ -66,5 +69,12 @@ public class EventController {
     private void showCostBeforeDiscount(OrderedMenu orderedMenu) {
         MenuResult menuResult = MenuResult.from(orderedMenu.getOrderedMenu());
         outputHandler.printCostBeforeDiscount(menuResult);
+    }
+
+    private void showDiscountResult(EventDate eventDate, OrderedMenu orderedMenu) {
+        DiscountResult discountResult = DiscountResult.of(eventDate.getEventDate(), orderedMenu.getOrderedMenu());
+        MenuResult menuResult = MenuResult.from(orderedMenu.getOrderedMenu());
+
+        outputHandler.printDiscountResult(discountResult, menuResult);
     }
 }

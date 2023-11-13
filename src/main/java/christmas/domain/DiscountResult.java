@@ -39,6 +39,12 @@ public class DiscountResult {
         return discount;
     }
 
+    public boolean isWeekend() {
+        int weeklyRemainder = date % DAYS_IN_A_WEEK;
+
+        return (weeklyRemainder >= FRIDAY_REMAINDER && weeklyRemainder <= SATURDAY_REMAINDER);
+    }
+
     private int calculateDiscount(String menuGroup) {
         int discount = INIT_VALUE;
 

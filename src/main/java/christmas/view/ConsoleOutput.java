@@ -1,11 +1,12 @@
 package christmas.view;
 
+import christmas.domain.DiscountResult;
 import christmas.domain.MenuResult;
 import christmas.handler.OutputHandler;
 
 import java.util.Map;
 
-import static christmas.handler.ConstantsHandler.MIN_AMOUNT_FOR_FREE_GIFT;
+import static christmas.handler.ConstantsHandler.*;
 
 public class ConsoleOutput implements OutputHandler {
 
@@ -61,7 +62,82 @@ public class ConsoleOutput implements OutputHandler {
     }
 
     @Override
-    public void printBenefit() {
+    public void printDiscountResult(DiscountResult discountResult, MenuResult menuResult) {
+        System.out.println();
+        System.out.println("<혜택 내역>");
 
+        boolean hasDiscount = false;
+
+        hasDiscount |= printChristmasDiscount(discountResult);
+        hasDiscount |= printWeeklyDiscount(discountResult);
+        hasDiscount |= printSpecialDiscount(discountResult);
+        hasDiscount |= printEventDiscount(discountResult, menuResult);
+
+        if (!hasDiscount) {
+            System.out.println("없음");
+        }
+    }
+
+    private boolean printChristmasDiscount(DiscountResult discountResult) {
+        int christmasDiscount = discountResult.christmasDiscount();
+
+        if (christmasDiscount > INIT_VALUE) {
+            String formattedChristmas = String.format("크리스마스 디데이 할인: -%,d원", christmasDiscount);
+            System.out.println(formattedChristmas);
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean printWeeklyDiscount(DiscountResult discountResult) {
+        int weeklyDiscount = discountResult.weeklyDiscount();
+        String discountType = calculateType(discountResult);
+
+        if (weeklyDiscount == INIT_VALUE) {
+            return false;
+        }
+
+        String formattedWeekly = String.format("%s: -%,d원",discountType, weeklyDiscount);
+        System.out.println(formattedWeekly);
+
+        return true;
+    }
+
+    private String calculateType(DiscountResult discountResult) {
+        String discountType = "";
+
+        if (discountResult.isWeekend()) {
+            discountType = "주말 할인";
+        } else if (!discountResult.isWeekend()) {
+            discountType = "평일 할인";
+        }
+
+        return discountType;
+    }
+
+    private boolean printSpecialDiscount(DiscountResult discountResult) {
+        int specialDiscount = discountResult.specialDiscount();
+
+        if (specialDiscount > INIT_VALUE) {
+            String formattedSpecial = String.format("특별 할인: -%,d원", specialDiscount);
+            System.out.println(formattedSpecial);
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean printEventDiscount(DiscountResult discountResult, MenuResult menuResult) {
+        int costBeforeDiscount = menuResult.calculateCostBeforeDiscount();
+        int eventDiscount = discountResult.eventDiscount(costBeforeDiscount);
+
+        if (eventDiscount > INIT_VALUE) {
+            String formattedEvent = String.format("증정 이벤트: -%,d원", eventDiscount);
+            System.out.println(formattedEvent);
+            return true;
+        }
+
+        return false;
     }
 }
