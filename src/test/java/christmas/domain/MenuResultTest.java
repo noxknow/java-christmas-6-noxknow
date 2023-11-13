@@ -29,6 +29,6 @@ public class MenuResultTest {
     void createTotalCost(Map<String, Integer> testMenu, int expectedCost) {
         MenuResult menuResult = MenuResult.from(testMenu);
 
-        assertThat(menuResult.totalCost()).isEqualTo(expectedCost);
+        assertThat(menuResult.calculateCostBeforeDiscount()).isEqualTo(expectedCost);
     }
 }

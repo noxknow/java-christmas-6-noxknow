@@ -16,17 +16,17 @@ public class MenuResult {
         return new MenuResult(orderedMenu);
     }
 
-    public int totalCost() {
-        int totalCost = INIT_VALUE;
+    public int calculateCostBeforeDiscount() {
+        int costBeforeDiscount = INIT_VALUE;
 
         for (Map.Entry<String, Integer> entry : orderedMenu.entrySet()) {
             String menu = entry.getKey();
             int quantity = entry.getValue();
             MenuManager menuManager = MenuManager.getMenuManager(menu);
 
-            totalCost += menuManager.getCost() * quantity;
+            costBeforeDiscount += menuManager.getCost() * quantity;
         }
 
-        return totalCost;
+        return costBeforeDiscount;
     }
 }
