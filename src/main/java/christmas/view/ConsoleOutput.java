@@ -2,6 +2,8 @@ package christmas.view;
 
 import christmas.handler.OutputHandler;
 
+import java.util.Map;
+
 public class ConsoleOutput implements OutputHandler {
 
     @Override
@@ -20,8 +22,17 @@ public class ConsoleOutput implements OutputHandler {
     }
 
     @Override
-    public void printBenefitMessage() {
+    public void printOrderedMenu(int date, Map<String, Integer> orderMenu) {
+        System.out.println("12월 " + date + "일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
+        System.out.println();
+        System.out.println("<주문 메뉴>");
 
+        for (Map.Entry<String, Integer> entry : orderMenu.entrySet()) {
+            String menu = entry.getKey();
+            int quantity = entry.getValue();
+
+            System.out.println(menu + " " + quantity + "개");
+        }
     }
 
     @Override

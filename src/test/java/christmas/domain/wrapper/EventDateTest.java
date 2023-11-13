@@ -12,7 +12,7 @@ public class EventDateTest {
     @DisplayName("숫자로 변환될 수 없는 값이 들어온다면 예외가 발생한다.")
     @ParameterizedTest(name = "[{index}] input {0}")
     @ValueSource(strings = {"일", " ", "@"})
-    void createDateByIncovertibleType(String dateValue) {
+    void createDateByInconvertibleType(String dateValue) {
         assertThatThrownBy(() -> EventDate.from(dateValue))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(ErrorHandler.INCONVERTIBLE_TYPE.getException().getMessage());

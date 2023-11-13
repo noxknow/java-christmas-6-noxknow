@@ -5,6 +5,8 @@ import christmas.domain.wrapper.OrderedMenu;
 import christmas.handler.InputHandler;
 import christmas.handler.OutputHandler;
 
+import java.util.Map;
+
 public class EventController {
 
     private final InputHandler inputHandler;
@@ -19,6 +21,8 @@ public class EventController {
         EventDate eventDate = loadDate();
 
         OrderedMenu orderedMenu = loadOrderedMenu();
+
+        showOrderedMenu(eventDate, orderedMenu);
     }
 
     private EventDate loadDate() {
@@ -47,5 +51,12 @@ public class EventController {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    private void showOrderedMenu(EventDate eventDate, OrderedMenu orderedMenu) {
+        int date = eventDate.getEventDate();
+        Map<String, Integer> orderMenu = orderedMenu.getOrderedMenu();
+
+        outputHandler.printOrderedMenu(date, orderMenu);
     }
 }
