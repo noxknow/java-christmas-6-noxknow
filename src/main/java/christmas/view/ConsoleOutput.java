@@ -140,4 +140,15 @@ public class ConsoleOutput implements OutputHandler {
 
         return false;
     }
+
+    public void printTotalDiscount(DiscountResult discountResult, MenuResult menuResult) {
+        int totalDiscount = discountResult.totalDiscount(menuResult.calculateCostBeforeDiscount());
+
+        if (totalDiscount > INIT_VALUE) {
+            String formattedTotal = String.format("-%,d원", totalDiscount);
+            System.out.println(formattedTotal);
+        } else if (totalDiscount == INIT_VALUE) {
+            System.out.println("0원");
+        }
+    }
 }
