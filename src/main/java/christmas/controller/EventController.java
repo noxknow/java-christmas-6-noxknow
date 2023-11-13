@@ -9,8 +9,7 @@ import christmas.handler.OutputHandler;
 
 import java.util.Map;
 
-import static christmas.handler.ConstantsHandler.CHAMPAGNE_AMOUNT;
-import static christmas.handler.ConstantsHandler.MIN_AMOUNT_FOR_FREE_GIFT;
+import static christmas.handler.ConstantsHandler.*;
 
 public class EventController {
 
@@ -23,49 +22,70 @@ public class EventController {
     }
 
     public void run() {
+        outputHandler.printGreetingMessage();
+
         EventDate eventDate = loadDate();
 
         OrderedMenu orderedMenu = loadOrderedMenu();
 
+        previewBoard(eventDate, orderedMenu);
+    }
+
+    private void previewBoard(EventDate eventDate, OrderedMenu orderedMenu) {
+        MenuResult menuResult = generateMenuResult(orderedMenu);
+        DiscountResult discountResult = generateDiscountResult(eventDate, orderedMenu);
+
         showOrderedMenu(eventDate, orderedMenu);
 
-        showCostBeforeDiscount(orderedMenu);
+        showCostBeforeDiscount(menuResult);
 
-        showDiscountResult(eventDate, orderedMenu);
+        showDiscountResult(menuResult, discountResult);
 
-        showTotalDiscount(eventDate, orderedMenu);
+        showTotalDiscount(menuResult, discountResult);
 
-        showTotalCost(eventDate, orderedMenu);
+        showTotalCost(menuResult, discountResult);
 
-        showEventBadge(eventDate, orderedMenu);
+        showEventBadge(menuResult, discountResult);
     }
 
     private EventDate loadDate() {
-        outputHandler.printGreetingMessage();
+        EventDate eventDate = null;
 
-        while (true) {
+        while (eventDate == null) {
             try {
                 outputHandler.requestVisitDayMessage();
                 String dateValue = inputHandler.inputValue();
-
-                return EventDate.from(dateValue);
+                eventDate = EventDate.from(dateValue);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
+
+        return eventDate;
     }
 
     private OrderedMenu loadOrderedMenu() {
-        while (true) {
+        OrderedMenu orderedMenu = null;
+
+        while (orderedMenu == null) {
             try {
                 outputHandler.requestMenuMessage();
                 String menuValue = inputHandler.inputValue();
-
-                return OrderedMenu.from(menuValue);
+                orderedMenu = OrderedMenu.from(menuValue);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
+
+        return orderedMenu;
+    }
+
+    private DiscountResult generateDiscountResult(EventDate eventDate, OrderedMenu orderedMenu) {
+        return DiscountResult.of(eventDate.getEventDate(), orderedMenu.getOrderedMenu());
+    }
+
+    private MenuResult generateMenuResult(OrderedMenu orderedMenu) {
+        return MenuResult.from(orderedMenu.getOrderedMenu());
     }
 
     private void showOrderedMenu(EventDate eventDate, OrderedMenu orderedMenu) {
@@ -75,45 +95,33 @@ public class EventController {
         outputHandler.printOrderedMenu(date, orderMenu);
     }
 
-    private void showCostBeforeDiscount(OrderedMenu orderedMenu) {
-        MenuResult menuResult = MenuResult.from(orderedMenu.getOrderedMenu());
+    private void showCostBeforeDiscount(MenuResult menuResult) {
         outputHandler.printCostBeforeDiscount(menuResult);
     }
 
-    private void showDiscountResult(EventDate eventDate, OrderedMenu orderedMenu) {
-        DiscountResult discountResult = DiscountResult.of(eventDate.getEventDate(), orderedMenu.getOrderedMenu());
-        MenuResult menuResult = MenuResult.from(orderedMenu.getOrderedMenu());
-
+    private void showDiscountResult(MenuResult menuResult, DiscountResult discountResult) {
         outputHandler.printDiscountResult(discountResult, menuResult);
     }
 
-    private void showTotalDiscount(EventDate eventDate, OrderedMenu orderedMenu) {
-        DiscountResult discountResult = DiscountResult.of(eventDate.getEventDate(), orderedMenu.getOrderedMenu());
-        MenuResult menuResult = MenuResult.from(orderedMenu.getOrderedMenu());
-
+    private void showTotalDiscount(MenuResult menuResult, DiscountResult discountResult) {
         outputHandler.printTotalDiscount(discountResult, menuResult);
     }
 
-    private void showTotalCost(EventDate eventDate, OrderedMenu orderedMenu) {
-        DiscountResult discountResult = DiscountResult.of(eventDate.getEventDate(), orderedMenu.getOrderedMenu());
-        MenuResult menuResult = MenuResult.from(orderedMenu.getOrderedMenu());
-
+    private void showTotalCost(MenuResult menuResult, DiscountResult discountResult) {
         int costBeforeDiscount = menuResult.calculateCostBeforeDiscount();
-        int totalCost = 0;
+        int totalDiscount = discountResult.totalDiscount(costBeforeDiscount);
+        int totalCost = INIT_VALUE;
 
         if (costBeforeDiscount >= MIN_AMOUNT_FOR_FREE_GIFT) {
-            totalCost = costBeforeDiscount - discountResult.totalDiscount(costBeforeDiscount) + CHAMPAGNE_AMOUNT;
+            totalCost = costBeforeDiscount - totalDiscount + CHAMPAGNE_AMOUNT;
         } else if (costBeforeDiscount < MIN_AMOUNT_FOR_FREE_GIFT) {
-            totalCost = costBeforeDiscount - discountResult.totalDiscount(costBeforeDiscount);
+            totalCost = costBeforeDiscount - totalDiscount;
         }
 
         outputHandler.printTotalCost(totalCost);
     }
 
-    private void showEventBadge(EventDate eventDate, OrderedMenu orderedMenu) {
-        DiscountResult discountResult = DiscountResult.of(eventDate.getEventDate(), orderedMenu.getOrderedMenu());
-        MenuResult menuResult = MenuResult.from(orderedMenu.getOrderedMenu());
-
+    private void showEventBadge(MenuResult menuResult, DiscountResult discountResult) {
         int costBeforeDiscount = menuResult.calculateCostBeforeDiscount();
         int totalDiscount = discountResult.totalDiscount(costBeforeDiscount);
         String eventBadge = discountResult.eventBadge(totalDiscount);
