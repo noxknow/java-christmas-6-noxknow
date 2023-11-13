@@ -82,12 +82,12 @@ public class DiscountResult {
     }
 
     public String eventBadge(int totalDiscount) {
-        if (totalDiscount >= STAR_BADGE_AMOUNT) {
-            return "별";
-        } else if (TREE_BADGE_AMOUNT >= 10000) {
-            return "트리";
-        } else if (SANTA_BADGE_AMOUNT >= 20000) {
+        if (totalDiscount >= SANTA_BADGE_AMOUNT) {
             return "산타";
+        } else if (totalDiscount >= TREE_BADGE_AMOUNT) {
+            return "트리";
+        } else if (totalDiscount >= STAR_BADGE_AMOUNT) {
+            return "별";
         }
 
         return "없음";
