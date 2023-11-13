@@ -71,6 +71,19 @@ public class DiscountResultTest {
         );
     }
 
+    private static Stream<Arguments> testEventBadge() {
+        return Stream.of(
+                Arguments.of(25, Map.of("초코케이크", 1,
+                        "제로콜라", 1), 1000, "없음"),
+                Arguments.of(23, Map.of("티본스테이크", 1,
+                        "제로콜라", 1), 6000, "별"),
+                Arguments.of(8, Map.of("초코케이크", 1,
+                        "바비큐립", 2), 11000, "트리"),
+                Arguments.of(3, Map.of("아이스크림", 4,
+                        "해산물파스타", 1), 25000, "산타")
+        );
+    }
+
     @DisplayName("크리스마스 디데이 할인이 정상적으로 적용된다.")
     @ParameterizedTest(name = "[{index}] input {0}")
     @MethodSource("testChristmasDiscount")
@@ -114,5 +127,14 @@ public class DiscountResultTest {
         DiscountResult discountResult = DiscountResult.of(date, orderedMenu);
 
         assertThat(discountResult.totalDiscount(beforeDiscountCost)).isEqualTo(expectedDiscount);
+    }
+
+    @DisplayName("이벤트 배지가 정상적으로 반환된다.")
+    @ParameterizedTest(name = "[{index}] input {0}")
+    @MethodSource("testEventBadge")
+    void createEventBadge(int date, Map<String, Integer> orderedMenu, int totalDiscount, String expectedResult) {
+        DiscountResult discountResult = DiscountResult.of(date, orderedMenu);
+
+        assertThat(discountResult.eventBadge(totalDiscount)).isEqualTo(expectedResult);
     }
 }
