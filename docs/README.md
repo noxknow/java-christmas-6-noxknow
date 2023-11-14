@@ -6,7 +6,8 @@
 - [2. 문제 해결 과정](#bookmark_tabs-문제-해결-과정)
    - [2.1 🧪 3주 차 미션 피드백](#-3주-차-미션-피드백)
    - [2.2 🤔 재귀와 반복문](#-재귀와-반복문)
-
+   - [2.3 👻 printError 메서드 활용](#-printerror-메서드-활용)
+      
 # :ballot_box_with_check: 구현 기능 목록
 
 - [x] controller Package
@@ -45,6 +46,183 @@
    - [x] ConsoleOutput
       - 출력을 담당하는 클래스
 
+```mermaid
+classDiagram
+    class Application {
+        - inputHandler: InputHandler
+        - outputHandler: OutputHandler
+        +main(String[] args)
+    }
+    
+    class EventController {
+        -InputHandler inputHandler
+        -OutputHandler outputHandler
+        +run()
+        -previewBoard(EventDate, OrderedMenu)
+        -loadDate(): EventDate
+        -loadOrderedMenu(): OrderedMenu
+        -generateDiscountResult(EventDate, OrderedMenu): DiscountResult
+        -generateMenuResult(OrderedMenu): MenuResult
+        -showOrderedMenu(EventDate, OrderedMenu)
+        -showCostBeforeDiscount(MenuResult)
+        -showDiscountResult(MenuResult, DiscountResult)
+        -showTotalDiscount(MenuResult, DiscountResult)
+        -showTotalCost(MenuResult, DiscountResult)
+        -showEventBadge(MenuResult, DiscountResult)
+    }
+    
+    class EventDate {
+        -date: int
+        +from(String dateValue): EventDate
+        -validateDateType(String dateValue): int
+        -validateDateRange(int date)
+        +getEventDate(): int
+    }
+    
+    class OrderedMenu {
+        -orderedMenu: Map<String, Integer>
+        +from(String menuValue): OrderedMenu
+        -validateOrderFormat(String menuValue): Map<String, Integer>
+        -splitMenuValue(String menuValue): Map<String, Integer>
+        -validateMenuDuplicate(Map<String, Integer>, String menu, int quantity)
+        -validateQuantityRange(Map<String, Integer> orderedMenu)
+        -validateQuantitySize(Map<String, Integer> orderedMenu)
+        -validateMenuType(Map<String, Integer> orderedMenu)
+        -validateOnlyDrink(Map<String, Integer> orderedMenu)
+        +getOrderedMenu(): Map<String, Integer>
+    }
+    
+    class DiscountResult {
+        -date: int
+        -orderedMenu: Map<String, Integer>
+        +of(int date, Map<String, Integer> orderedMenu): DiscountResult
+        +christmasDiscount(): int
+        +weeklyDiscount(): int
+        +isWeekend(): boolean
+        -calculateDiscount(String menuGroup): int
+        +specialDiscount(): int
+        +eventDiscount(int beforeDiscountCost): int
+        +totalDiscount(int beforeDiscountCost): int
+        +eventBadge(int totalDiscount): String
+    }
+    
+    class MenuManager {
+        <<enumeration>>
+        +getMenu(): String
+        +getCost(): int
+        +getGroup(): String
+        +getMenuManager(String orderedMenu): MenuManager
+    }
+    
+    class MenuResult {
+        -orderedMenu: Map<String, Integer>
+        +from(Map<String, Integer> orderedMenu): MenuResult
+        +calculateCostBeforeDiscount(): int
+    }
+    
+    class InputHandler {
+        <<interface>>
+        +inputValue(): String
+    }
+    
+    class OutputHandler {
+        <<interface>>
+        +printGreetingMessage()
+        +requestVisitDayMessage()
+        +requestMenuMessage()
+        +printError(String errorMessage)
+        +printOrderedMenu(int date, Map<String, Integer> orderMenu)
+        +printCostBeforeDiscount(MenuResult menuResult)
+        +printDiscountResult(DiscountResult discountResult, MenuResult menuResult)
+        +printTotalDiscount(DiscountResult discountResult, MenuResult menuResult)
+        +printTotalCost(int totalCost)
+        +printEventBadge(String eventBadge)
+    }
+    
+    class ConsoleInput {
+        +inputValue(): String
+    }
+    
+    class ConsoleOutput {
+        +printGreetingMessage(): void
+        +requestVisitDayMessage(): void
+        +requestMenuMessage(): void
+        +printError(String): void
+        +printOrderedMenu(int, Map<String, Integer>): void
+        +printCostBeforeDiscount(MenuResult): void
+        +printDiscountResult(DiscountResult, MenuResult): void
+        +printTotalDiscount(DiscountResult, MenuResult): void
+        +printTotalCost(int): void
+        +printEventBadge(String): void
+        -printFreeGiftEvent(int): void
+        -checkApplyEvent(MenuResult): boolean
+        -hasDiscount(DiscountResult, MenuResult): boolean
+        -printChristmasDiscount(DiscountResult): boolean
+        -printWeeklyDiscount(DiscountResult): boolean
+        -calculateType(DiscountResult): String
+        -printSpecialDiscount(DiscountResult): boolean
+        -printEventDiscount(DiscountResult, MenuResult): boolean
+    }
+
+    class ErrorHandler {
+        <<enumeration>>
+        +INCONVERTIBLE_TYPE: String
+        +NOT_ONLY_DRINK: String
+        +DUPLICATE_MENU: String
+        +INVALID_DATE_RANGE: String
+        +INVALID_QUANTITY_RANGE: String
+        +INVALID_QUANTITY_SIZE: String
+        +INVALID_MENU: String
+        +INVALID_MENU_FORMAT: String
+        +getException(): RuntimeException
+    }
+
+    class ConstantsHandler {
+        <<enumeration>>
+        +MIN_DATE_NUMBER: int
+        +MAX_DATE_NUMBER: int
+        +COMMA_DELIMITER: String
+        +DASH_DELIMITER: String
+        +FIRST_ELEMENT: int
+        +SECOND_ELEMENT: int
+        +MIN_QUANTITY: int
+        +MAX_QUANTITY: int
+        +INIT_VALUE: int
+        +INIT_DISCOUNT: int
+        +SPECIAL_DISCOUNT: int
+        +UNIT_OF_DISCOUNT: int
+        +INIT_DATE: int
+        +D_DAY: int
+        +DAYS_IN_A_WEEK: int
+        +SUNDAY_REMAINDER: int
+        +THURSDAY_REMAINDER: int
+        +WEDNESDAY_REMAINDER: int
+        +FRIDAY_REMAINDER: int
+        +SATURDAY_REMAINDER: int
+        +PRESENT_YEAR: int
+        +MIN_AMOUNT_FOR_FREE_GIFT: int
+        +CHAMPAGNE_AMOUNT: int
+        +STAR_BADGE_AMOUNT: int
+        +TREE_BADGE_AMOUNT: int
+        +SANTA_BADGE_AMOUNT: int
+        +getValue(): int
+        +getWord(): String
+    }
+
+    InputHandler <|-- ConsoleInput
+    OutputHandler <|-- ConsoleOutput
+    
+    Application --> EventController
+    EventController --> InputHandler
+    EventController --> OutputHandler
+    EventController --> EventDate
+    EventController --> OrderedMenu
+    EventController --> DiscountResult
+    EventController --> MenuResult
+    MenuResult --> MenuManager
+    DiscountResult --> MenuManager
+```
+
 ---
 
 # :bookmark_tabs: 문제 해결 과정
@@ -82,3 +260,7 @@ enum을 사용하면 모든 상수는 하나의 인스턴스로써 사용되고 
 물론 성능상은 조금 안좋지만 가독성 측면에서 이득을 취할 수 있습니다! 😁
 
 🔹 (@**packdev937**) : 좋은 말씀 감사합니다 : ) 사실 저도 처음에는 재귀로 구현했는데요, 자바 특성 상 1000번이 넘어가면 StackOverFlow가 발생하더라구요! 여러 예외 상황에 대해서 깊게 생각하다 보니 자연스럽게 while로 구현하게 되었습니다!
+
+## 👻 printError 메서드 활용
+
+🔹 저번 미션에서 반복문을 사용하는 Controller 내부에 UI 로직을 사용했다. 하지만, Controller 내부에 UI를 담당하는 부분이 있으면 안 되기 때문에 이번 미션에서는 `OutputView`에 `printError` 메서드를 구현하여 에러 메시지를 넘겨주는 방식으로 리팩토링했다. 
