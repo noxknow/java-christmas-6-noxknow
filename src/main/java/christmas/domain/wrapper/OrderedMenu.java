@@ -14,6 +14,7 @@ public class OrderedMenu {
     private OrderedMenu(String menuValue) {
         this.orderedMenu = validateOrderFormat(menuValue);
         validateQuantityRange(orderedMenu);
+        validateQuantitySize(orderedMenu);
         validateMenuType(orderedMenu);
         validateOnlyDrink(orderedMenu);
     }
@@ -60,6 +61,18 @@ public class OrderedMenu {
             if (quantity < MIN_QUANTITY) {
                 throw INVALID_QUANTITY_RANGE.getException();
             }
+        }
+    }
+
+    private void validateQuantitySize(Map<String, Integer> orderedMenu) {
+        int totalQuantity = INIT_VALUE;
+
+        for (int quantity : orderedMenu.values()) {
+            totalQuantity += quantity;
+        }
+
+        if (totalQuantity > MAX_QUANTITY) {
+            throw INVALID_QUANTITY_SIZE.getException();
         }
     }
 
