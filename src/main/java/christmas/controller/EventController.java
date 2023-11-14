@@ -110,13 +110,13 @@ public class EventController {
     private void showTotalCost(MenuResult menuResult, DiscountResult discountResult) {
         int costBeforeDiscount = menuResult.calculateCostBeforeDiscount();
         int totalDiscount = discountResult.totalDiscount(costBeforeDiscount);
-        int totalCost = INIT_VALUE;
+        int totalCost = INIT_VALUE.getValue();
 
-        if (costBeforeDiscount >= MIN_AMOUNT_FOR_FREE_GIFT) {
-            totalCost = costBeforeDiscount - totalDiscount + CHAMPAGNE_AMOUNT;
-        } else if (costBeforeDiscount < MIN_APPLY_EVENT_AMOUNT) {
+        if (costBeforeDiscount >= MIN_AMOUNT_FOR_FREE_GIFT.getValue()) {
+            totalCost = costBeforeDiscount - totalDiscount + CHAMPAGNE_AMOUNT.getValue();
+        } else if (costBeforeDiscount < MIN_APPLY_EVENT_AMOUNT.getValue()) {
             totalCost = costBeforeDiscount;
-        } else if (costBeforeDiscount < MIN_AMOUNT_FOR_FREE_GIFT) {
+        } else if (costBeforeDiscount < MIN_AMOUNT_FOR_FREE_GIFT.getValue()) {
             totalCost = costBeforeDiscount - totalDiscount;
         }
 
@@ -127,8 +127,8 @@ public class EventController {
         int costBeforeDiscount = menuResult.calculateCostBeforeDiscount();
         int totalDiscount = discountResult.totalDiscount(costBeforeDiscount);
 
-        if (costBeforeDiscount < MIN_APPLY_EVENT_AMOUNT) {
-            totalDiscount = INIT_VALUE;
+        if (costBeforeDiscount < MIN_APPLY_EVENT_AMOUNT.getValue()) {
+            totalDiscount = INIT_VALUE.getValue();
         }
 
         String eventBadge = discountResult.eventBadge(totalDiscount);

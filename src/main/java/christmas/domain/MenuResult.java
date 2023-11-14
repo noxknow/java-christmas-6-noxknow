@@ -17,7 +17,7 @@ public class MenuResult {
     }
 
     public int calculateCostBeforeDiscount() {
-        int costBeforeDiscount = INIT_VALUE;
+        int costBeforeDiscount = INIT_VALUE.getValue();
 
         for (Map.Entry<String, Integer> entry : orderedMenu.entrySet()) {
             String menu = entry.getKey();

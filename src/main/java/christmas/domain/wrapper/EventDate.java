@@ -27,7 +27,7 @@ public class EventDate {
     }
 
     private void validateDateRange(int date) {
-        if (date < MIN_DATE_NUMBER || date > MAX_DATE_NUMBER) {
+        if (date < MIN_DATE_NUMBER.getValue() || date > MAX_DATE_NUMBER.getValue()) {
             throw INVALID_DATE_RANGE.getException();
         }
     }

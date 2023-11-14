@@ -55,9 +55,9 @@ public class ConsoleOutput implements OutputHandler {
         System.out.println();
         System.out.println("<증정 메뉴>");
 
-        if (costBeforeDiscount >= MIN_AMOUNT_FOR_FREE_GIFT) {
+        if (costBeforeDiscount >= MIN_AMOUNT_FOR_FREE_GIFT.getValue()) {
             System.out.println("샴페인 1개");
-        } else if (costBeforeDiscount < MIN_AMOUNT_FOR_FREE_GIFT) {
+        } else if (costBeforeDiscount < MIN_AMOUNT_FOR_FREE_GIFT.getValue()) {
             System.out.println("없음");
         }
     }
@@ -79,7 +79,7 @@ public class ConsoleOutput implements OutputHandler {
     }
 
     private boolean checkApplyEvent(MenuResult menuResult) {
-        if (menuResult.calculateCostBeforeDiscount() < MIN_APPLY_EVENT_AMOUNT) {
+        if (menuResult.calculateCostBeforeDiscount() < MIN_APPLY_EVENT_AMOUNT.getValue()) {
             return true;
         }
 
@@ -100,7 +100,7 @@ public class ConsoleOutput implements OutputHandler {
     private boolean printChristmasDiscount(DiscountResult discountResult) {
         int christmasDiscount = discountResult.christmasDiscount();
 
-        if (christmasDiscount > INIT_VALUE) {
+        if (christmasDiscount > INIT_VALUE.getValue()) {
             String formattedChristmas = String.format("크리스마스 디데이 할인: -%,d원", christmasDiscount);
             System.out.println(formattedChristmas);
             return true;
@@ -113,7 +113,7 @@ public class ConsoleOutput implements OutputHandler {
         int weeklyDiscount = discountResult.weeklyDiscount();
         String discountType = calculateType(discountResult);
 
-        if (weeklyDiscount == INIT_VALUE) {
+        if (weeklyDiscount == INIT_VALUE.getValue()) {
             return false;
         }
 
@@ -138,7 +138,7 @@ public class ConsoleOutput implements OutputHandler {
     private boolean printSpecialDiscount(DiscountResult discountResult) {
         int specialDiscount = discountResult.specialDiscount();
 
-        if (specialDiscount > INIT_VALUE) {
+        if (specialDiscount > INIT_VALUE.getValue()) {
             String formattedSpecial = String.format("특별 할인: -%,d원", specialDiscount);
             System.out.println(formattedSpecial);
             return true;
@@ -151,7 +151,7 @@ public class ConsoleOutput implements OutputHandler {
         int costBeforeDiscount = menuResult.calculateCostBeforeDiscount();
         int eventDiscount = discountResult.eventDiscount(costBeforeDiscount);
 
-        if (eventDiscount > INIT_VALUE) {
+        if (eventDiscount > INIT_VALUE.getValue()) {
             String formattedEvent = String.format("증정 이벤트: -%,d원", eventDiscount);
             System.out.println(formattedEvent);
             return true;
@@ -167,10 +167,10 @@ public class ConsoleOutput implements OutputHandler {
         int totalDiscount = discountResult.totalDiscount(menuResult.calculateCostBeforeDiscount());
 
         if (!checkApplyEvent(menuResult)) {
-            if (totalDiscount > INIT_VALUE) {
+            if (totalDiscount > INIT_VALUE.getValue()) {
                 String formattedTotal = String.format("-%,d원", totalDiscount);
                 System.out.println(formattedTotal);
-            } else if (totalDiscount == INIT_VALUE) {
+            } else if (totalDiscount == INIT_VALUE.getValue()) {
                 System.out.println("0원");
             }
         } else if (checkApplyEvent(menuResult)) {

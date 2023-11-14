@@ -1,35 +1,50 @@
 package christmas.handler;
 
-public class ConstantsHandler {
+public enum ConstantsHandler {
 
-    public static final int MIN_DATE_NUMBER = 1;
-    public static final int MAX_DATE_NUMBER = 31;
+    MIN_DATE_NUMBER(1, ""),
+    MAX_DATE_NUMBER(31, ""),
 
-    public static final String COMMA_DELIMITER = ",";
-    public static final String DASH_DELIMITER = "-";
+    COMMA_DELIMITER(-1, ","),
+    DASH_DELIMITER(-1, "-"),
+    FIRST_ELEMENT(0, ""),
+    SECOND_ELEMENT(1, ""),
+    MIN_QUANTITY(1, ""),
+    MAX_QUANTITY(20, ""),
+    INIT_VALUE(0, ""),
 
-    public static final int FIRST_ELEMENT = 0;
-    public static final int SECOND_ELEMENT = 1;
-    public static final int MIN_QUANTITY = 1;
-    public static final int MAX_QUANTITY = 20;
-    public static final int INIT_VALUE = 0;
+    INIT_DISCOUNT(1000, ""),
+    SPECIAL_DISCOUNT(1000, ""),
+    UNIT_OF_DISCOUNT(100, ""),
+    INIT_DATE(1, ""),
+    D_DAY(25, ""),
+    DAYS_IN_A_WEEK(7, ""),
+    SUNDAY_REMAINDER(3, ""),
+    THURSDAY_REMAINDER(0, ""),
+    WEDNESDAY_REMAINDER(6, ""),
+    FRIDAY_REMAINDER(1, ""),
+    SATURDAY_REMAINDER(2, ""),
+    PRESENT_YEAR(2023, ""),
+    MIN_AMOUNT_FOR_FREE_GIFT(120000, ""),
+    CHAMPAGNE_AMOUNT(25000, ""),
+    STAR_BADGE_AMOUNT(5000, ""),
+    TREE_BADGE_AMOUNT(10000, ""),
+    SANTA_BADGE_AMOUNT(20000, ""),
+    MIN_APPLY_EVENT_AMOUNT(10000, "");
 
-    public static final int INIT_DISCOUNT = 1000;
-    public static final int SPECIAL_DISCOUNT = 1000;
-    public static final int UNIT_OF_DISCOUNT = 100;
-    public static final int INIT_DATE = 1;
-    public static final int D_DAY = 25;
-    public static final int DAYS_IN_A_WEEK = 7;
-    public static final int SUNDAY_REMAINDER = 3;
-    public static final int THURSDAY_REMAINDER = 0;
-    public static final int WEDNESDAY_REMAINDER = 6;
-    public static final int FRIDAY_REMAINDER = 1;
-    public static final int SATURDAY_REMAINDER = 2;
-    public static final int PRESENT_YEAR = 2023;
-    public static final int MIN_AMOUNT_FOR_FREE_GIFT = 120000;
-    public static final int CHAMPAGNE_AMOUNT = 25000;
-    public static final int STAR_BADGE_AMOUNT = 5000;
-    public static final int TREE_BADGE_AMOUNT = 10000;
-    public static final int SANTA_BADGE_AMOUNT = 20000;
-    public static final int MIN_APPLY_EVENT_AMOUNT = 10000;
+    private final int value;
+    private final String word;
+
+    ConstantsHandler(int value, String word) {
+        this.value = value;
+        this.word = word;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public String getWord() {
+        return word;
+    }
 }

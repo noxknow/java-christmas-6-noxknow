@@ -19,20 +19,20 @@ public class DiscountResult {
     }
 
     public int christmasDiscount() {
-        if (date <= D_DAY) {
-            return INIT_DISCOUNT + (date-INIT_DATE) * UNIT_OF_DISCOUNT;
+        if (date <= D_DAY.getValue()) {
+            return INIT_DISCOUNT.getValue() + (date-INIT_DATE.getValue()) * UNIT_OF_DISCOUNT.getValue();
         }
 
-        return INIT_VALUE;
+        return INIT_VALUE.getValue();
     }
 
     public int weeklyDiscount() {
-        int discount = INIT_VALUE;
-        int weeklyRemainder = date % DAYS_IN_A_WEEK;
+        int discount = INIT_VALUE.getValue();
+        int weeklyRemainder = date % DAYS_IN_A_WEEK.getValue();
 
-        if (weeklyRemainder == THURSDAY_REMAINDER || weeklyRemainder >= SUNDAY_REMAINDER && weeklyRemainder <= WEDNESDAY_REMAINDER) {
+        if (weeklyRemainder == THURSDAY_REMAINDER.getValue() || weeklyRemainder >= SUNDAY_REMAINDER.getValue() && weeklyRemainder <= WEDNESDAY_REMAINDER.getValue()) {
             discount += calculateDiscount("디저트");
-        } else if (weeklyRemainder >= FRIDAY_REMAINDER && weeklyRemainder <= SATURDAY_REMAINDER) {
+        } else if (weeklyRemainder >= FRIDAY_REMAINDER.getValue() && weeklyRemainder <= SATURDAY_REMAINDER.getValue()) {
             discount += calculateDiscount("메인");
         }
 
@@ -40,13 +40,13 @@ public class DiscountResult {
     }
 
     public boolean isWeekend() {
-        int weeklyRemainder = date % DAYS_IN_A_WEEK;
+        int weeklyRemainder = date % DAYS_IN_A_WEEK.getValue();
 
-        return (weeklyRemainder >= FRIDAY_REMAINDER && weeklyRemainder <= SATURDAY_REMAINDER);
+        return (weeklyRemainder >= FRIDAY_REMAINDER.getValue() && weeklyRemainder <= SATURDAY_REMAINDER.getValue());
     }
 
     private int calculateDiscount(String menuGroup) {
-        int discount = INIT_VALUE;
+        int discount = INIT_VALUE.getValue();
 
         for (Map.Entry<String, Integer> entry : orderedMenu.entrySet()) {
             String menu = entry.getKey();
@@ -54,7 +54,7 @@ public class DiscountResult {
             MenuManager menuManager = MenuManager.getMenuManager(menu);
 
             if (menuManager.getGroup().equals(menuGroup)) {
-                discount += PRESENT_YEAR * quantity;
+                discount += PRESENT_YEAR.getValue() * quantity;
             }
         }
 
@@ -62,19 +62,19 @@ public class DiscountResult {
     }
 
     public int specialDiscount() {
-        if (date % DAYS_IN_A_WEEK == SUNDAY_REMAINDER || date == D_DAY) {
-            return SPECIAL_DISCOUNT;
+        if (date % DAYS_IN_A_WEEK.getValue() == SUNDAY_REMAINDER.getValue() || date == D_DAY.getValue()) {
+            return SPECIAL_DISCOUNT.getValue();
         }
 
-        return INIT_VALUE;
+        return INIT_VALUE.getValue();
     }
 
     public int eventDiscount(int beforeDiscountCost) {
-        if (beforeDiscountCost >= MIN_AMOUNT_FOR_FREE_GIFT) {
-            return CHAMPAGNE_AMOUNT;
+        if (beforeDiscountCost >= MIN_AMOUNT_FOR_FREE_GIFT.getValue()) {
+            return CHAMPAGNE_AMOUNT.getValue();
         }
 
-        return INIT_VALUE;
+        return INIT_VALUE.getValue();
     }
 
     public int totalDiscount(int beforeDiscountCost) {
@@ -88,11 +88,11 @@ public class DiscountResult {
     }
 
     public String eventBadge(int totalDiscount) {
-        if (totalDiscount >= SANTA_BADGE_AMOUNT) {
+        if (totalDiscount >= SANTA_BADGE_AMOUNT.getValue()) {
             return "산타";
-        } else if (totalDiscount >= TREE_BADGE_AMOUNT) {
+        } else if (totalDiscount >= TREE_BADGE_AMOUNT.getValue()) {
             return "트리";
-        } else if (totalDiscount >= STAR_BADGE_AMOUNT) {
+        } else if (totalDiscount >= STAR_BADGE_AMOUNT.getValue()) {
             return "별";
         }
 

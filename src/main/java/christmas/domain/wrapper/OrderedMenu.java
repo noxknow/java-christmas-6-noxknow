@@ -35,12 +35,12 @@ public class OrderedMenu {
 
     private Map<String, Integer> splitMenuValue(String menuValue) {
         Map<String, Integer> orderedMenu = new HashMap<>();
-        String[] items = menuValue.split(COMMA_DELIMITER);
+        String[] items = menuValue.split(COMMA_DELIMITER.getWord());
 
         for (String item : items) {
-            String[] menuStructure = item.split(DASH_DELIMITER);
-            String menu = menuStructure[FIRST_ELEMENT];
-            int quantity = Integer.parseInt(menuStructure[SECOND_ELEMENT]);
+            String[] menuStructure = item.split(DASH_DELIMITER.getWord());
+            String menu = menuStructure[FIRST_ELEMENT.getValue()];
+            int quantity = Integer.parseInt(menuStructure[SECOND_ELEMENT.getValue()]);
 
             validateMenuDuplicate(orderedMenu, menu, quantity);
         }
@@ -58,20 +58,20 @@ public class OrderedMenu {
 
     private void validateQuantityRange(Map<String, Integer> orderedMenu) {
         for (int quantity : orderedMenu.values()) {
-            if (quantity < MIN_QUANTITY) {
+            if (quantity < MIN_QUANTITY.getValue()) {
                 throw INVALID_QUANTITY_RANGE.getException();
             }
         }
     }
 
     private void validateQuantitySize(Map<String, Integer> orderedMenu) {
-        int totalQuantity = INIT_VALUE;
+        int totalQuantity = INIT_VALUE.getValue();
 
         for (int quantity : orderedMenu.values()) {
             totalQuantity += quantity;
         }
 
-        if (totalQuantity > MAX_QUANTITY) {
+        if (totalQuantity > MAX_QUANTITY.getValue()) {
             throw INVALID_QUANTITY_SIZE.getException();
         }
     }
