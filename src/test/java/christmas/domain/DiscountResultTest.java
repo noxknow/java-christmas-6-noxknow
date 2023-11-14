@@ -1,6 +1,10 @@
 package christmas.domain;
 
+import camp.nextstep.edu.missionutils.test.NsTest;
+import christmas.Application;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -8,9 +12,12 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class DiscountResultTest {
+public class DiscountResultTest extends NsTest {
+
+    private static final String LINE_SEPARATOR = System.lineSeparator();
 
     private static Stream<Arguments> testChristmasDiscount() {
         return Stream.of(
@@ -136,5 +143,24 @@ public class DiscountResultTest {
         DiscountResult discountResult = DiscountResult.of(date, orderedMenu);
 
         assertThat(discountResult.eventBadge(totalDiscount)).isEqualTo(expectedResult);
+    }
+
+    @DisplayName("총주문 금액 10,000원 이하라면 이벤트가 적용되지 않는다.")
+    @Test
+    void applyEvent() {
+        assertSimpleTest(() -> {
+            run("3", "아이스크림-1,제로콜라-1");
+            Assertions.assertThat(output()).contains(
+                    "<혜택 내역>" + LINE_SEPARATOR + "없음",
+                    "<총혜택 금액>" + LINE_SEPARATOR + "0원",
+                    "<할인 후 예상 결제 금액>" + LINE_SEPARATOR + "8,000원",
+                    "<12월 이벤트 배지>" + LINE_SEPARATOR + "없음"
+            );
+        });
+    }
+
+    @Override
+    protected void runMain() {
+        Application.main(new String[]{});
     }
 }
