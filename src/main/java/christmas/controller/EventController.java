@@ -112,10 +112,10 @@ public class EventController {
         int totalDiscount = discountResult.totalDiscount(costBeforeDiscount);
         int totalCost = INIT_VALUE.getValue();
 
-        if (costBeforeDiscount >= MIN_AMOUNT_FOR_FREE_GIFT.getValue()) {
-            totalCost = costBeforeDiscount - totalDiscount + CHAMPAGNE_AMOUNT.getValue();
-        } else if (costBeforeDiscount < MIN_APPLY_EVENT_AMOUNT.getValue()) {
+        if (costBeforeDiscount < MIN_APPLY_EVENT_AMOUNT.getValue()) {
             totalCost = costBeforeDiscount;
+        } else if (costBeforeDiscount >= MIN_AMOUNT_FOR_FREE_GIFT.getValue()) {
+            totalCost = costBeforeDiscount - totalDiscount + CHAMPAGNE_AMOUNT.getValue();
         } else if (costBeforeDiscount < MIN_AMOUNT_FOR_FREE_GIFT.getValue()) {
             totalCost = costBeforeDiscount - totalDiscount;
         }
