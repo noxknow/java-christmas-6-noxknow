@@ -51,6 +51,15 @@ public class OrderedMenuTest {
                 .hasMessage(ErrorHandler.INVALID_QUANTITY_RANGE.getException().getMessage());
     }
 
+    @DisplayName("총 메뉴의 개수가 20개를 넘는다면 예외가 발생한다.")
+    @ParameterizedTest(name = "[{index}] input {0}")
+    @ValueSource(strings = {"해산물파스타-15,레드와인-3,제로콜라-6", "바비큐립-8,초코케이크-11,아이스크림-2"})
+    void createMenuByInvalidQuantitySize(String menuValue) {
+        assertThatThrownBy(() -> OrderedMenu.from(menuValue))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ErrorHandler.INVALID_QUANTITY_SIZE.getException().getMessage());
+    }
+
     @DisplayName("메뉴판에 없는 메뉴라면 예외가 발생한다.")
     @ParameterizedTest(name = "[{index}] input {0}")
     @ValueSource(strings = {"해산물파스타-0,레드-1", "타파-1,펩시콜라-2"})
