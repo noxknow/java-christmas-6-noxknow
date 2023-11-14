@@ -10,6 +10,7 @@ public interface OutputHandler {
     void printGreetingMessage();
     void requestVisitDayMessage();
     void requestMenuMessage();
+    void printError(String errorMessage);
     void printOrderedMenu(int date, Map<String, Integer> orderMenu);
     void printCostBeforeDiscount(MenuResult menuResult);
     void printDiscountResult(DiscountResult discountResult, MenuResult menuResult);

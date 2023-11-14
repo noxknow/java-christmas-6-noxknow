@@ -57,7 +57,7 @@ public class EventController {
                 String dateValue = inputHandler.inputValue();
                 eventDate = EventDate.from(dateValue);
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                outputHandler.printError(e.getMessage());
             }
         }
 
@@ -73,7 +73,7 @@ public class EventController {
                 String menuValue = inputHandler.inputValue();
                 orderedMenu = OrderedMenu.from(menuValue);
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                outputHandler.printError(e.getMessage());
             }
         }
 

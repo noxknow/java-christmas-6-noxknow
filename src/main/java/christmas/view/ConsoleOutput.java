@@ -26,6 +26,11 @@ public class ConsoleOutput implements OutputHandler {
     }
 
     @Override
+    public void printError(String errorMessage) {
+        System.out.println(errorMessage);
+    }
+
+    @Override
     public void printOrderedMenu(int date, Map<String, Integer> orderMenu) {
         System.out.println("12월 " + date + "일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
         System.out.println();
