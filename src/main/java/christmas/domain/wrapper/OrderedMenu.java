@@ -15,6 +15,7 @@ public class OrderedMenu {
         this.orderedMenu = validateOrderFormat(menuValue);
         validateQuantityRange(orderedMenu);
         validateMenuType(orderedMenu);
+        validateOnlyDrink(orderedMenu);
     }
 
     public static OrderedMenu from(String menuValue) {
@@ -69,6 +70,18 @@ public class OrderedMenu {
             if (menuManager == null) {
                 throw INVALID_MENU.getException();
             }
+        }
+    }
+
+    private void validateOnlyDrink(Map<String, Integer> orderedMenu) {
+        long groupCount = orderedMenu.keySet()
+                .stream()
+                .map(MenuManager::getMenuManager)
+                .filter(manager -> manager.getGroup().equals("음료"))
+                .count();
+
+        if (orderedMenu.size() == groupCount) {
+            throw NOT_ONLY_DRINK.getException();
         }
     }
 
