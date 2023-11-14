@@ -145,11 +145,11 @@ public class DiscountResultTest extends NsTest {
         assertThat(discountResult.eventBadge(totalDiscount)).isEqualTo(expectedResult);
     }
 
-    @DisplayName("총주문 금액 10,000원 이하라면 이벤트가 적용되지 않는다.")
+    @DisplayName("총 주문 금액 10,000원 미만이라면 이벤트가 적용되지 않는다.")
     @Test
     void applyEvent() {
         assertSimpleTest(() -> {
-            run("3", "아이스크림-1,제로콜라-1");
+            run("25", "아이스크림-1,제로콜라-1");
             Assertions.assertThat(output()).contains(
                     "<혜택 내역>" + LINE_SEPARATOR + "없음",
                     "<총혜택 금액>" + LINE_SEPARATOR + "0원",
