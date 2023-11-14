@@ -67,6 +67,26 @@ public class ConsoleOutput implements OutputHandler {
         System.out.println();
         System.out.println("<혜택 내역>");
 
+        if (!checkApplyEvent(menuResult)) {
+            boolean hasDiscount = hasDiscount(discountResult, menuResult);
+
+            if (!hasDiscount) {
+                System.out.println("없음");
+            }
+        } else if (checkApplyEvent(menuResult)) {
+            System.out.println("없음");
+        }
+    }
+
+    private boolean checkApplyEvent(MenuResult menuResult) {
+        if (menuResult.calculateCostBeforeDiscount() < MIN_APPLY_EVENT_AMOUNT) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean hasDiscount(DiscountResult discountResult, MenuResult menuResult) {
         boolean hasDiscount = false;
 
         hasDiscount |= printChristmasDiscount(discountResult);
@@ -74,9 +94,7 @@ public class ConsoleOutput implements OutputHandler {
         hasDiscount |= printSpecialDiscount(discountResult);
         hasDiscount |= printEventDiscount(discountResult, menuResult);
 
-        if (!hasDiscount) {
-            System.out.println("없음");
-        }
+        return hasDiscount;
     }
 
     private boolean printChristmasDiscount(DiscountResult discountResult) {
@@ -148,10 +166,14 @@ public class ConsoleOutput implements OutputHandler {
         System.out.println("<총혜택 금액>");
         int totalDiscount = discountResult.totalDiscount(menuResult.calculateCostBeforeDiscount());
 
-        if (totalDiscount > INIT_VALUE) {
-            String formattedTotal = String.format("-%,d원", totalDiscount);
-            System.out.println(formattedTotal);
-        } else if (totalDiscount == INIT_VALUE) {
+        if (!checkApplyEvent(menuResult)) {
+            if (totalDiscount > INIT_VALUE) {
+                String formattedTotal = String.format("-%,d원", totalDiscount);
+                System.out.println(formattedTotal);
+            } else if (totalDiscount == INIT_VALUE) {
+                System.out.println("0원");
+            }
+        } else if (checkApplyEvent(menuResult)) {
             System.out.println("0원");
         }
     }

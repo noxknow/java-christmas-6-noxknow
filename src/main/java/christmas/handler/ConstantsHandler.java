@@ -30,4 +30,5 @@ public class ConstantsHandler {
     public static final int STAR_BADGE_AMOUNT = 5000;
     public static final int TREE_BADGE_AMOUNT = 10000;
     public static final int SANTA_BADGE_AMOUNT = 20000;
+    public static final int MIN_APPLY_EVENT_AMOUNT = 10000;
 }
