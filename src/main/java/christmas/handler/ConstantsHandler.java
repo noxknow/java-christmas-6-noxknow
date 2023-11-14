@@ -11,6 +11,7 @@ public class ConstantsHandler {
     public static final int FIRST_ELEMENT = 0;
     public static final int SECOND_ELEMENT = 1;
     public static final int MIN_QUANTITY = 1;
+    public static final int MAX_QUANTITY = 20;
     public static final int INIT_VALUE = 0;
 
     public static final int INIT_DISCOUNT = 1000;

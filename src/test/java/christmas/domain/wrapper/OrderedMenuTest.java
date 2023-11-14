@@ -60,6 +60,15 @@ public class OrderedMenuTest {
                 .hasMessage(ErrorHandler.INVALID_MENU.getException().getMessage());
     }
 
+    @DisplayName("음료만 주문 시 예외가 발생한다.")
+    @ParameterizedTest(name = "[{index}] input {0}")
+    @ValueSource(strings = {"레드와인-2", "제로콜라-9,레드와인-1", "제로콜라-9,샴페인-1"})
+    void createMenuByOnlyDrink(String menuValue) {
+        assertThatThrownBy(() -> OrderedMenu.from(menuValue))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ErrorHandler.NOT_ONLY_DRINK.getException().getMessage());
+    }
+
     @DisplayName("메뉴와 개수가 정상적으로 반환된다.")
     @ParameterizedTest(name = "[{index}] input {0}")
     @MethodSource("testMenu")
