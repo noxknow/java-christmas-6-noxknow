@@ -43,7 +43,7 @@
 - [x] view Package
    - [x] ConsoleInput
       - 입력을 담당하는 클래스
-   - [x] ConsoleOutput
+   - [x] ConsoleOutput 
       - 출력을 담당하는 클래스
 
 ```mermaid
